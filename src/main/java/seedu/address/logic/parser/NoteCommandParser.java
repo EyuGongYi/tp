@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
+import static seedu.address.logic.parser.ParserUtil.parseName;
 
 import seedu.address.logic.commands.NoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -29,6 +30,6 @@ public class NoteCommandParser implements Parser<NoteCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteCommand.MESSAGE_USAGE));
         }
 
-        return new NoteCommand(new Name(name), new Note(note));
+        return new NoteCommand(parseName(name), new Note(note));
     }
 }

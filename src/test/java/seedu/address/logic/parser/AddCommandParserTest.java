@@ -19,8 +19,13 @@ import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.SUBJECT_DESC_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.SUBJECT_DESC_MATH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMERGENCY_CONTACT_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY_WITH_MULTISPACE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SUBJECT_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SUBJECT_MATH;
@@ -65,6 +70,21 @@ public class AddCommandParserTest {
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMERGENCY_CONTACT_DESC_BOB
                         + LEVEL_DESC_P3 + ADDRESS_DESC_BOB + SUBJECT_DESC_MATH + SUBJECT_DESC_ENGLISH,
                 new AddCommand(expectedPersonMultipleSubjects));
+    }
+
+    @Test
+    public void parse_properParsingOfFields() {
+        // Ensure name was parsed correctly, even with multi-spaces
+        Person person = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
+                .withEmergencyContact(VALID_EMERGENCY_CONTACT_AMY).withAddress(VALID_ADDRESS_AMY)
+                .withSubjects(VALID_SUBJECT_ENGLISH).build();
+        AddCommand expectedCommand = new AddCommand(person);
+
+        String userInputWithMultiSpacedName = " " + PREFIX_NAME + VALID_NAME_AMY_WITH_MULTISPACE
+                + PHONE_DESC_AMY + EMERGENCY_CONTACT_DESC_AMY
+                + ADDRESS_DESC_AMY + SUBJECT_DESC_ENGLISH;
+
+        assertParseSuccess(parser, userInputWithMultiSpacedName, expectedCommand);
     }
 
     @Test

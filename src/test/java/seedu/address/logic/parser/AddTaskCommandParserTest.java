@@ -1,31 +1,50 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.EMERGENCY_CONTACT_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DEADLINE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TASK_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.SUBJECT_DESC_ENGLISH;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_DEADLINE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.TASK_DEADLINE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TASK_DESCRIPTION_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.TASK_DESCRIPTION_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMERGENCY_CONTACT_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY_WITH_MULTISPACE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SUBJECT_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_DEADLINE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_DEADLINE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_DESCRIPTION_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_DESCRIPTION_PROJECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESCRIPTION;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ParserUtil.parseTask;
+import static seedu.address.logic.parser.ParserUtil.parseTaskDeadline;
+import static seedu.address.logic.parser.ParserUtil.parseTaskDescription;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.task.Task;
 import seedu.address.model.person.task.TaskDeadline;
 import seedu.address.model.person.task.TaskDescription;
+import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TaskBuilder;
 
 public class AddTaskCommandParserTest {
@@ -38,6 +57,26 @@ public class AddTaskCommandParserTest {
 
         assertParseSuccess(parser, NAME_DESC_BOB + TASK_DESCRIPTION_DESC_BOB + TASK_DEADLINE_DESC_BOB,
                 new AddTaskCommand(new Name(VALID_NAME_BOB), expectedTask));
+    }
+
+    @Test
+    public void parse_properParsingOfFields() {
+        // Ensure name was parsed correctly, even with multi-spaces
+        TaskDescription taskDescription = new TaskDescription(VALID_TASK_DESCRIPTION_AMY);
+        TaskDeadline taskDeadline = new TaskDeadline(VALID_TASK_DEADLINE_AMY);
+        AddTaskCommand expectedCommand = new AddTaskCommand(new Name(VALID_NAME_AMY),
+                                                            new Task(taskDescription, taskDeadline));
+
+        String userInputWithMultiSpacedName = " " + PREFIX_NAME + VALID_NAME_AMY_WITH_MULTISPACE
+                + TASK_DESCRIPTION_DESC_AMY + TASK_DEADLINE_DESC_AMY;
+
+        assertParseSuccess(parser, userInputWithMultiSpacedName, expectedCommand);
+
+        //Ensure that TaskDescriptions and Name is trimmed
+        String userInputWithSpacedName = " " + PREFIX_NAME + " " + VALID_NAME_AMY + "  "
+                + " " + PREFIX_TASK_DESCRIPTION + "  " + VALID_TASK_DESCRIPTION_AMY + "  "
+                + " " + PREFIX_TASK_DEADLINE + " " + VALID_TASK_DEADLINE_AMY;
+        assertParseSuccess(parser, userInputWithSpacedName, expectedCommand);
     }
 
     @Test
