@@ -41,7 +41,7 @@ EduManage is a **desktop app for managing contacts, optimized for use via a Comm
 
 1. Ensure you have Java `17` or above installed in your Computer.
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `.jar` file from [here](https://github.com/AY2425S1-CS2103T-W08-3/tp/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for EduManage.
 
@@ -68,23 +68,23 @@ EduManage is a **desktop app for managing contacts, optimized for use via a Comm
 
 ## Command summary
 
-| Index |        Action         |                                                        Format                                                        |                                          examples                                          |
-|:-----:|:---------------------:|:--------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------:|
-|   1   |          Add          |         `add n/NAME p/PHONE_NUMBER e/EMERGENCY_CONTACT a/ADDRESS [l/LEVEL] [s/SUBJECT]…​ [lt/LESSON_TIME]…​`         | `add n/James Ho p/22224444 e/99999999 a/123, Clementi Rd, 1234665 l/S1 s/MATH s/CHEMISTRY` |
-|   2   |        Delete         |                                                   `delete i/INDEX`                                                   |                                        `delete i/2`                                        |
-|   3   |        Update         | `update NAME [n/NAME] [p/PHONE_NUMBER] [e/EMERGENCY_CONTACT] [a/ADDRESS] [l/LEVEL] [s/SUBJECT]…​ [lt/LESSON_TIME]…​` |                         `update Alex Yeoh n/James Lee e/99999999`                          |
-|   4   |         Find          |                        `find n/KEYWORD [MORE_KEYWORDS]` or `find l/LEVEL` or `find s/SUBJECT`                        |                       `find n/Alex` or `find l/S2` or `find s/MATH`                        |
-|   5   |         List          |                                                        `list`                                                        |                                           `list`                                           |
-|   6   |          Tag          |                                          `tag n/NAME [l/LEVEL] [s/SUBJECT]`                                          |                                `tag n/John Doe l/S1 s/MATH`                                |
-|   7   |         Note          |                                                `note n/NAME nt/NOTES`                                                |                      `note n/John Doe nt/Doing well in all subjects`                       |
-|   8   |         Clear         |                                                       `clear`                                                        |                                          `clear`                                           |
-|   9   |         Help          |                                                        `help`                                                        |                                           `help`                                           |
-|  10   |       Add Task        |                                          `addtask n/NAME t/TASK d/DEADLINE`                                          |                        `addtask n/John Doe t/Mark CA1 d/2024-10-15`                        |
-|  11   |      Delete Task      |                                          `deletetask n/NAME ti/TASK_INDEX`                                           |                                `deletetask n/John Doe ti/1`                                |
-|  12   |      Update Task      |                                  `updatetask n/NAME ti/INDEX [t/TASK] [d/DEADLINE]`                                  |                       `updatetask n/Joht Doe ti/2 t/Mark assignment`                       |
-|  13   |    View All Tasks     |                                                     `viewtasks`                                                      |                                        `viewtasks`                                         |
-|  14   | View Specific Student |                                                    `view n/NAME`                                                     |                                     `view n/John Doe`                                      |
-|  15   |         Exit          |                                                        `exit`                                                        |                                           `exit`                                           |
+| Index |        Action         |                                                        Format                                                        |                                           examples                                            |
+|:-----:|:---------------------:|:--------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------:|
+|   1   |          Add          |         `add n/NAME p/PHONE_NUMBER e/EMERGENCY_CONTACT a/ADDRESS [l/LEVEL] [s/SUBJECT]…​ [lt/LESSON_TIME]…​`         | `add n/James Ho p/22224444 e/99999999 a/123, Clementi Rd, 1234665 l/S1 NT s/MATH s/CHEMISTRY` |
+|   2   |        Delete         |                                                   `delete i/INDEX`                                                   |                                         `delete i/2`                                          |
+|   3   |        Update         | `update NAME [n/NAME] [p/PHONE_NUMBER] [e/EMERGENCY_CONTACT] [a/ADDRESS] [l/LEVEL] [s/SUBJECT]…​ [lt/LESSON_TIME]…​` |                           `update Alex Yeoh n/James Lee e/99999999`                           |
+|   4   |         Find          |                        `find n/KEYWORD [MORE_KEYWORDS]` or `find l/LEVEL` or `find s/SUBJECT`                        |                       `find n/Alex` or `find l/S2 NA` or `find s/MATH`                        |
+|   5   |         List          |                                                        `list`                                                        |                                            `list`                                             |
+|   6   |          Tag          |                                          `tag n/NAME [l/LEVEL] [s/SUBJECT]`                                          |                                `tag n/John Doe l/S1 NT s/MATH`                                |
+|   7   |         Note          |                                                `note n/NAME nt/NOTES`                                                |                        `note n/John Doe nt/Doing well in all subjects`                        |
+|   8   |         Clear         |                                                       `clear`                                                        |                                            `clear`                                            |
+|   9   |         Help          |                                                        `help`                                                        |                                            `help`                                             |
+|  10   |       Add Task        |                                          `addtask n/NAME t/TASK d/DEADLINE`                                          |                         `addtask n/John Doe t/Mark CA1 d/2024-10-15`                          |
+|  11   |      Delete Task      |                                          `deletetask n/NAME ti/TASK_INDEX`                                           |                                 `deletetask n/John Doe ti/1`                                  |
+|  12   |      Update Task      |                                  `updatetask n/NAME ti/INDEX [t/TASK] [d/DEADLINE]`                                  |                        `updatetask n/Joht Doe ti/2 t/Mark assignment`                         |
+|  13   |    View All Tasks     |                                                     `viewtasks`                                                      |                                          `viewtasks`                                          |
+|  14   | View Specific Student |                                                    `view n/NAME`                                                     |                                       `view n/John Doe`                                       |
+|  15   |         Exit          |                                                        `exit`                                                        |                                            `exit`                                             |
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -128,7 +128,7 @@ EduManage is a **desktop app for managing contacts, optimized for use via a Comm
 
 Adds a student to the address book.
 
-**Format:** `add n/NAME p/PHONE_NUMBER e/EMERGENCY_CONTACT a/ADDRESS [l/SCHOOL_LEVEL] [s/SUBJECT]…​ [lt/LESSON_TIME]…​`
+**Format:** `add n/NAME p/PHONE_NUMBER e/EMERGENCY_CONTACT a/ADDRESS [l/LEVEL] [s/SUBJECT]…​ [lt/LESSON_TIME]…​`
 
 <box type="tip" seamless>
 
@@ -137,7 +137,7 @@ Adds a student to the address book.
 
 **Examples:**
 * `add n/John Doe p/98765432 e/99999999 a/John street, block 123, #01-01`
-* `add n/Betsy Crowe s/MATH e/88888888 a/Newgate Prison p/1234567 l/S1 s/ENGLISH`
+* `add n/Betsy Crowe s/MATH e/88888888 a/Newgate Prison p/1234567 l/S1 NA s/ENGLISH`
 
 ***
 
@@ -145,7 +145,7 @@ Adds a student to the address book.
 
 Deletes the specified student from the address book.
 
-**Format:** `delete i/INDEX`
+**Format:** `delete INDEX`
 
 * Deletes the student at the specified `INDEX`.
 * The index refers to the index number shown in the displayed student list.
@@ -161,7 +161,7 @@ Deletes the specified student from the address book.
 
 Updates the details of an existing student in the address book.
 
-**Format:** `update NAME [n/NAME] [p/PHONE] [e/EMERGENCY_CONTACT] [a/ADDRESS] [l/level] [s/SUBJECT]…​ [lt/LESSON_TIME]…​`
+**Format:** `update NAME [n/NAME] [p/PHONE] [e/EMERGENCY_CONTACT] [a/ADDRESS] [l/LEVEL] [s/SUBJECT]…​ [lt/LESSON_TIME]…​`
 
 * Updates the student with the specified `NAME`. The name refers to the full name shown in the displayed student list.
 * At least one of the optional fields must be provided.
@@ -191,7 +191,7 @@ Find students by either their name, level or subject.
 
 **Examples:**
 * `find n/John` returns `john` and `John Doe`
-* `find l/S3` returns all students tagged with level `S3`
+* `find l/S3 NA` returns all students tagged with level `S3 NA`
 * `find s/MATH` returns all students tagged with subject `MATH`
 * `find n/alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find n/alex david'](images/findAlexDavidResult.png)
@@ -210,11 +210,11 @@ Shows a list of all students in the address book.
 
 Allows tagging a student by their level and subject. A student must have a level assigned before they can be tagged with a subject.
 
-**Format:** `tag n/NAME [l/level] [s/SUBJECT]…​`
+**Format:** `tag n/NAME [l/LEVEL] [s/SUBJECT]…​`
 * To tag multiple subjects, use the format `s/FIRST_SUBJECT s/SECOND_SUBJECT ...`
 
 **Examples:**
-* `tag n/John Doe l/S3 s/ENGLISH`
+* `tag n/John Doe l/S3 NA s/ENGLISH`
 * `tag n/Jane Smith s/MATH` only works if `Jane Smith` has a `level` assigned previously
 
 ***
@@ -305,7 +305,9 @@ Views a specific student on the right side window.
 **Format:** `view n/NAME`
 
 **Examples:**
-* `view n/John Doe`
+* `view n/Alex Yeoh`
+
+![view student](images/view_student.png)
 
 ***
 
@@ -319,19 +321,19 @@ Exits EduManage.
 
 ### Saving the Data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+EduManage data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ***
 
 ### Editing the Data File
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+EduManage data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file makes its format invalid, EduManage will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the EduManage to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
 --------------------------------------------------------------------------------------------------------------------
@@ -339,7 +341,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous EduManage home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
