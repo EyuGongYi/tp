@@ -1,10 +1,20 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_CONTAIN_EXTRA_PREFIX;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMERGENCY_CONTACT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSON_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DEADLINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
+import static seedu.address.logic.parser.ParserUtil.isAnyPrefixPresent;
 
 import java.util.Arrays;
 
@@ -29,7 +39,18 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     public FindCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_LEVEL, PREFIX_SUBJECT);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_LEVEL, PREFIX_SUBJECT,
+                        PREFIX_PHONE, PREFIX_EMERGENCY_CONTACT,
+                        PREFIX_ADDRESS, PREFIX_NOTE, PREFIX_TASK_DESCRIPTION,
+                        PREFIX_TASK_DEADLINE, PREFIX_TASK_INDEX, PREFIX_LESSON_TIME);
+
+        boolean isExtraPrefix = isAnyPrefixPresent(argMultimap, PREFIX_PHONE, PREFIX_EMERGENCY_CONTACT,
+                PREFIX_ADDRESS, PREFIX_NOTE, PREFIX_TASK_DESCRIPTION,
+                PREFIX_TASK_DEADLINE, PREFIX_TASK_INDEX, PREFIX_LESSON_TIME);
+
+        if (isExtraPrefix) {
+            throw new ParseException(String.format(MESSAGE_CONTAIN_EXTRA_PREFIX, FindCommand.MESSAGE_USAGE));
+        }
 
         boolean isByName = argMultimap.getValue(PREFIX_NAME).isPresent();
         boolean isByLevel = argMultimap.getValue(PREFIX_LEVEL).isPresent();

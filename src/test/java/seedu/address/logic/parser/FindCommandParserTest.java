@@ -1,6 +1,15 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_CONTAIN_EXTRA_PREFIX;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.EMERGENCY_CONTACT_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.LESSON_TIME_SUN_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.NOTE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_DEADLINE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_DESCRIPTION_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_INDEX_DESC;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -96,6 +105,45 @@ public class FindCommandParserTest {
         assertParseFailure(parser, " s/MATHEMATIC", Subject.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, " s/    ", Subject.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, " s/", Subject.MESSAGE_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_extraPrefix_failure() {
+        String expectedMessage = String.format(MESSAGE_CONTAIN_EXTRA_PREFIX, FindCommand.MESSAGE_USAGE);
+
+        String validExpectedStudentString = " n/Alice Bob";
+
+        //have Phone Prefix
+        assertParseFailure(parser, PHONE_DESC_BOB + validExpectedStudentString,
+                expectedMessage);
+
+        //have E-Contact Prefix
+        assertParseFailure(parser, EMERGENCY_CONTACT_DESC_BOB + validExpectedStudentString,
+                expectedMessage);
+
+        //have Address Prefix
+        assertParseFailure(parser, ADDRESS_DESC_BOB + validExpectedStudentString,
+                expectedMessage);
+
+        //have Note Prefix
+        assertParseFailure(parser, NOTE_DESC_BOB + validExpectedStudentString,
+                expectedMessage);
+
+        //have Task Description Prefix
+        assertParseFailure(parser, TASK_DESCRIPTION_DESC_BOB + validExpectedStudentString,
+                expectedMessage);
+
+        //have Task Deadline Prefix
+        assertParseFailure(parser, TASK_DEADLINE_DESC_BOB + validExpectedStudentString,
+                expectedMessage);
+
+        //have Task Index Prefix
+        assertParseFailure(parser, TASK_INDEX_DESC + validExpectedStudentString,
+                expectedMessage);
+
+        //have LessonTime Prefix
+        assertParseFailure(parser, LESSON_TIME_SUN_DESC + validExpectedStudentString,
+                expectedMessage);
     }
 
 }
