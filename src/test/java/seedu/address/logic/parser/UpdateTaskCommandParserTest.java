@@ -3,6 +3,8 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DEADLINE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_NONEXISTENT_DATE;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_PAST_DATE;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TASK_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TASK_INDEX;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -74,9 +76,13 @@ public class UpdateTaskCommandParserTest {
         assertParseFailure(parser, NAME_DESC_AMY + TASK_INDEX_DESC + INVALID_DEADLINE_DESC,
                 TaskDeadline.MESSAGE_CONSTRAINTS);
 
+        // Non-existent date for deadline
+        assertParseFailure(parser, NAME_DESC_AMY + TASK_INDEX_DESC + INVALID_NONEXISTENT_DATE,
+                TaskDeadline.MESSAGE_CONSTRAINTS_NONEXISTENT_DATE);
+
         // invalid task deadline, past date
-        assertParseFailure(parser, NAME_DESC_AMY + TASK_INDEX_DESC + INVALID_DEADLINE_DESC,
-                TaskDeadline.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, NAME_DESC_AMY + TASK_INDEX_DESC + INVALID_PAST_DATE,
+                TaskDeadline.MESSAGE_CONSTRAINTS_PAST_DATE);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser,

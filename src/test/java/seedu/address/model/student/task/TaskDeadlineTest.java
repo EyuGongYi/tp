@@ -22,6 +22,28 @@ public class TaskDeadlineTest {
     }
 
     @Test
+    public void isValidFormat() {
+        // null deadline
+        assertThrows(NullPointerException.class, () -> TaskDeadline.isValidFormat(null));
+
+        // valid format for comparison
+        assertTrue(TaskDeadline.isValidFormat("2036-02-29")); // Should be true in a leap year
+        assertTrue(TaskDeadline.isValidFormat("2035-02-28"));
+        assertTrue(TaskDeadline.isValidFormat("2035-12-31"));
+        assertTrue(TaskDeadline.isValidFormat("2035-01-01"));
+        assertTrue(TaskDeadline.isValidFormat("2035-42-99"));
+        assertTrue(TaskDeadline.isValidFormat("2035-42-01"));
+        assertTrue(TaskDeadline.isValidFormat("2035-01-99"));
+
+        // invalid format
+        assertFalse(TaskDeadline.isValidFormat(""));
+        assertFalse(TaskDeadline.isValidFormat(" "));
+        assertFalse(TaskDeadline.isValidFormat("tomorrow"));
+        assertFalse(TaskDeadline.isValidFormat("2035"));
+        assertFalse(TaskDeadline.isValidFormat("2035-1-1"));
+    }
+
+    @Test
     public void isValidTaskDeadline() {
         // null deadline
         assertThrows(NullPointerException.class, () -> TaskDeadline.isValidDate(null));
@@ -56,7 +78,7 @@ public class TaskDeadlineTest {
     }
 
     @Test
-    public void isValidDeadline() {
+    public void isValidDate() {
         // null deadline
         assertThrows(NullPointerException.class, () -> TaskDeadline.isValidDate(null));
 

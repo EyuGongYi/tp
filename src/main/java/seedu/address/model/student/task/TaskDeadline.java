@@ -13,6 +13,7 @@ import java.time.format.DateTimeParseException;
  */
 public class TaskDeadline {
     public static final String MESSAGE_CONSTRAINTS = "Task deadline should be in the format YYYY-MM-DD";
+    public static final String MESSAGE_CONSTRAINTS_NONEXISTENT_DATE = "Date does not exist";
     public static final String MESSAGE_CONSTRAINTS_PAST_DATE = "Deadlines cannot be in the past."
             + " Please choose today's date or a future date.";
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -40,6 +41,27 @@ public class TaskDeadline {
 
         TaskDeadline otherTaskDeadline = (TaskDeadline) other;
         return taskDeadline.equals(otherTaskDeadline.taskDeadline);
+    }
+
+    /**
+     * Returns true if a given string is a date.
+     */
+    public static boolean isValidFormat(String test) {
+        String[] dateArray = test.split("-");
+
+        if (dateArray.length != 3) {
+            return false;
+        }
+
+        boolean validYearFormat = dateArray[0].matches("\\d{4}");
+        boolean validMonthFormat = dateArray[1].matches("\\d{2}");
+        boolean validDayFormat = dateArray[2].matches("\\d{2}");
+
+        if (validYearFormat && validMonthFormat && validDayFormat) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

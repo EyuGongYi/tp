@@ -12,6 +12,7 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_TASK_INDEX;
 import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 import static seedu.address.model.student.task.TaskDeadline.MESSAGE_CONSTRAINTS;
+import static seedu.address.model.student.task.TaskDeadline.MESSAGE_CONSTRAINTS_NONEXISTENT_DATE;
 import static seedu.address.model.student.task.TaskDeadline.MESSAGE_CONSTRAINTS_PAST_DATE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
@@ -41,6 +42,7 @@ public class ParserUtilTest {
     private static final String INVALID_TASK_DESCRIPTION = " ";
     private static final String INVALID_TASK_DEADLINE = "tomorrow";
     private static final String INVALID_PAST_DATE = "2001-09-11";
+    private static final String INVALID_DATE = "2001-42-69";
     private static final String INVALID_LESSON_TIME = "every thurs";
 
     private static final String VALID_NAME = "Rachel Walker";
@@ -272,6 +274,12 @@ public class ParserUtilTest {
     public void parseTaskDeadline_pastDates_throwsParseException() {
         assertThrows(ParseException.class,
                 MESSAGE_CONSTRAINTS_PAST_DATE, () -> ParserUtil.parseTaskDeadline(INVALID_PAST_DATE));
+    }
+
+    @Test
+    public void parseTaskDeadline_invalidDate_throwsParseException() {
+        assertThrows(ParseException.class,
+                MESSAGE_CONSTRAINTS_NONEXISTENT_DATE, () -> ParserUtil.parseTaskDeadline(INVALID_DATE));
     }
 
     @Test

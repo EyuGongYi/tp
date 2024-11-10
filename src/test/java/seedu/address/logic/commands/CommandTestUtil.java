@@ -93,8 +93,9 @@ public class CommandTestUtil {
     public static final String INVALID_SUBJECT_DESC = " " + PREFIX_SUBJECT + "MATH*"; // '*' not allowed in subjects
     public static final String INVALID_LEVEL_DESC = " " + PREFIX_LEVEL + "P7";
     public static final String INVALID_TASK_DESC = " " + PREFIX_TASK_DESCRIPTION + "   "; // blank task description
-    public static final String INVALID_DEADLINE_DESC = " " + PREFIX_TASK_DEADLINE + "2024-14-23"; // invalid month
-    public static final String INVALID_PAST_DATE = " " + PREFIX_TASK_DEADLINE + "2001-09-11";
+    public static final String INVALID_DEADLINE_DESC = " " + PREFIX_TASK_DEADLINE + "2024-14-123"; // invalid format
+    public static final String INVALID_PAST_DATE = " " + PREFIX_TASK_DEADLINE + "2001-09-11"; // a past date
+    public static final String INVALID_NONEXISTENT_DATE = " " + PREFIX_TASK_DEADLINE + "2001-42-01"; // invalid month
     public static final String INVALID_TASK_INDEX = " " + PREFIX_TASK_INDEX + "1!";
     public static final String INVALID_LESSON_TIME_DESC = " " + PREFIX_LESSON_TIME + "every thurs";
 
