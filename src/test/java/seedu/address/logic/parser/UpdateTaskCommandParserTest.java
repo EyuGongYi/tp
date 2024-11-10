@@ -74,6 +74,10 @@ public class UpdateTaskCommandParserTest {
         assertParseFailure(parser, NAME_DESC_AMY + TASK_INDEX_DESC + INVALID_DEADLINE_DESC,
                 TaskDeadline.MESSAGE_CONSTRAINTS);
 
+        // invalid task deadline, past date
+        assertParseFailure(parser, NAME_DESC_AMY + TASK_INDEX_DESC + INVALID_DEADLINE_DESC,
+                TaskDeadline.MESSAGE_CONSTRAINTS);
+
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser,
                 NAME_DESC_AMY + TASK_INDEX_DESC + INVALID_TASK_DESC + INVALID_DEADLINE_DESC,

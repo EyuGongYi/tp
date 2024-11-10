@@ -11,6 +11,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_TASK_INDEX;
 import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
+import static seedu.address.model.student.task.TaskDeadline.MESSAGE_CONSTRAINTS;
+import static seedu.address.model.student.task.TaskDeadline.MESSAGE_CONSTRAINTS_PAST_DATE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 
@@ -38,6 +40,7 @@ public class ParserUtilTest {
     private static final String INVALID_SUBJECT = "subj";
     private static final String INVALID_TASK_DESCRIPTION = " ";
     private static final String INVALID_TASK_DEADLINE = "tomorrow";
+    private static final String INVALID_PAST_DATE = "2001-09-11";
     private static final String INVALID_LESSON_TIME = "every thurs";
 
     private static final String VALID_NAME = "Rachel Walker";
@@ -46,7 +49,7 @@ public class ParserUtilTest {
     private static final String VALID_SUBJECT_1 = "MATH";
     private static final String VALID_SUBJECT_2 = "ENGLISH";
     private static final String VALID_TASK_DESCRIPTION = "Mark work";
-    private static final String VALID_TASK_DEADLINE = "2024-01-01";
+    private static final String VALID_TASK_DEADLINE = "2035-01-01";
     private static final String VALID_LESSON_TIME = "SUN-11:00-13:30";
 
     private static final String WHITESPACE = " \t\r\n";
@@ -261,7 +264,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseTaskDeadline_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseTaskDeadline(INVALID_TASK_DEADLINE));
+        assertThrows(ParseException.class,
+                MESSAGE_CONSTRAINTS, () -> ParserUtil.parseTaskDeadline(INVALID_TASK_DEADLINE));
+    }
+
+    @Test
+    public void parseTaskDeadline_pastDates_throwsParseException() {
+        assertThrows(ParseException.class,
+                MESSAGE_CONSTRAINTS_PAST_DATE, () -> ParserUtil.parseTaskDeadline(INVALID_PAST_DATE));
     }
 
     @Test

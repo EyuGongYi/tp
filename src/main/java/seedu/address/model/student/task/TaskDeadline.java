@@ -9,10 +9,12 @@ import java.time.format.DateTimeParseException;
 
 /**
  * Represents a Task's taskDeadline in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidTaskDeadline(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class TaskDeadline {
     public static final String MESSAGE_CONSTRAINTS = "Task deadline should be in the format YYYY-MM-DD";
+    public static final String MESSAGE_CONSTRAINTS_PAST_DATE = "Deadlines cannot be in the past."
+            + " Please choose today's date or a future date.";
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     public final LocalDate taskDeadline;
 
@@ -22,7 +24,7 @@ public class TaskDeadline {
      */
     public TaskDeadline(String taskDeadline) {
         requireNonNull(taskDeadline);
-        checkArgument(isValidTaskDeadline(taskDeadline), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidDate(taskDeadline), MESSAGE_CONSTRAINTS);
         this.taskDeadline = LocalDate.parse(taskDeadline, formatter);
     }
 
@@ -41,9 +43,9 @@ public class TaskDeadline {
     }
 
     /**
-     * Returns true if a given string is a valid task deadline.
+     * Returns true if a given string is a valid date.
      */
-    public static boolean isValidTaskDeadline(String test) {
+    public static boolean isValidDate(String test) {
         boolean isValidDeadline;
         try {
             LocalDate parsedDate = LocalDate.parse(test, formatter);
@@ -57,6 +59,18 @@ public class TaskDeadline {
             isValidDeadline = false;
         }
         return isValidDeadline;
+    }
+
+    /**
+     * Returns true if a given string is a valid date and is from today and onwards
+     */
+    public static boolean isValidTaskDeadline(String test) {
+        if (!isValidDate(test)) {
+            return false;
+        } else {
+            LocalDate parsedDate = LocalDate.parse(test, formatter);
+            return !parsedDate.isBefore(LocalDate.now());
+        }
     }
 
     @Override

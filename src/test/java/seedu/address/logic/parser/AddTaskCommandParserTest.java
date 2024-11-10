@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DEADLINE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_PAST_DATE;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TASK_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
@@ -89,6 +90,10 @@ public class AddTaskCommandParserTest {
         // invalid deadline
         assertParseFailure(parser, NAME_DESC_BOB + TASK_DESCRIPTION_DESC_BOB + INVALID_DEADLINE_DESC,
                 TaskDeadline.MESSAGE_CONSTRAINTS);
+
+        // invalid deadline, past date
+        assertParseFailure(parser, NAME_DESC_BOB + TASK_DESCRIPTION_DESC_BOB + INVALID_PAST_DATE,
+                TaskDeadline.MESSAGE_CONSTRAINTS_PAST_DATE);
 
         // non-empty preamble
         assertParseFailure(parser,

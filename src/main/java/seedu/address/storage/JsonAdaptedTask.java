@@ -52,7 +52,7 @@ public class JsonAdaptedTask {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     TaskDeadline.class.getSimpleName()));
         }
-        if (!TaskDeadline.isValidTaskDeadline(taskDeadline)) {
+        if (!TaskDeadline.isValidDate(taskDeadline)) {
             throw new IllegalValueException(TaskDeadline.MESSAGE_CONSTRAINTS);
         }
         final TaskDeadline modelTaskDeadline = new TaskDeadline(taskDeadline);

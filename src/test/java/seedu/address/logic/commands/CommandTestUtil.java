@@ -56,8 +56,8 @@ public class CommandTestUtil {
     public static final String VALID_NOTE_BOB = "Always sleeping";
     public static final String VALID_TASK_DESCRIPTION_AMY = "Mark homework";
     public static final String VALID_TASK_DESCRIPTION_PROJECT = "Do project";
-    public static final String VALID_TASK_DEADLINE = "2024-10-15";
-    public static final String VALID_TASK_DEADLINE_AMY = "2024-01-01";
+    public static final String VALID_TASK_DEADLINE = "2035-10-15";
+    public static final String VALID_TASK_DEADLINE_AMY = "2035-01-01";
     public static final String VALID_TASK_INDEX = "1";
     public static final String VALID_LESSON_TIME_SUN = "SUN-11:00-13:00";
     public static final String VALID_LESSON_TIME_TUE = "TUE-00:00-02:00";
@@ -94,6 +94,7 @@ public class CommandTestUtil {
     public static final String INVALID_LEVEL_DESC = " " + PREFIX_LEVEL + "P7";
     public static final String INVALID_TASK_DESC = " " + PREFIX_TASK_DESCRIPTION + "   "; // blank task description
     public static final String INVALID_DEADLINE_DESC = " " + PREFIX_TASK_DEADLINE + "2024-14-23"; // invalid month
+    public static final String INVALID_PAST_DATE = " " + PREFIX_TASK_DEADLINE + "2001-09-11";
     public static final String INVALID_TASK_INDEX = " " + PREFIX_TASK_INDEX + "1!";
     public static final String INVALID_LESSON_TIME_DESC = " " + PREFIX_LESSON_TIME + "every thurs";
 
