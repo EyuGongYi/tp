@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_TASK_INDEX;
 import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
+import static seedu.address.logic.parser.ParserUtil.isAnyPrefixPresent;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 
@@ -65,6 +66,22 @@ public class ParserUtilTest {
 
         // None are present
         assertFalse(arePrefixesPresent(argumentMultimap, PREFIX_EMERGENCY_CONTACT, PREFIX_ADDRESS));
+    }
+
+    @Test
+    public void isAnyPrefixPresentTest() {
+        ArgumentMultimap argumentMultimap = new ArgumentMultimap();
+        argumentMultimap.put(PREFIX_NAME, "name");
+        argumentMultimap.put(PREFIX_NOTE, "");
+
+        // All are present
+        assertTrue(isAnyPrefixPresent(argumentMultimap, PREFIX_NAME, PREFIX_NOTE));
+
+        // some are present
+        assertTrue(isAnyPrefixPresent(argumentMultimap, PREFIX_NOTE, PREFIX_TASK_INDEX));
+
+        // None are present
+        assertFalse(isAnyPrefixPresent(argumentMultimap, PREFIX_EMERGENCY_CONTACT, PREFIX_ADDRESS));
     }
 
     @Test

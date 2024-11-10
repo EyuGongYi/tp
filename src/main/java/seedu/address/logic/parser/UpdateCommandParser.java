@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_CONTAIN_EXTRA_PREFIX;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMERGENCY_CONTACT;
@@ -10,6 +11,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DEADLINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
+import static seedu.address.logic.parser.ParserUtil.isAnyPrefixPresent;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -37,8 +42,15 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMERGENCY_CONTACT,
-                        PREFIX_ADDRESS, PREFIX_NOTE, PREFIX_SUBJECT, PREFIX_LEVEL, PREFIX_LESSON_TIME);
+                        PREFIX_ADDRESS, PREFIX_NOTE, PREFIX_SUBJECT, PREFIX_LEVEL, PREFIX_LESSON_TIME,
+                        PREFIX_TASK_INDEX, PREFIX_TASK_DEADLINE, PREFIX_TASK_DESCRIPTION);
 
+        boolean isExtraPrefix = isAnyPrefixPresent(argMultimap, PREFIX_TASK_INDEX,
+                PREFIX_TASK_DEADLINE, PREFIX_TASK_DESCRIPTION);
+
+        if (isExtraPrefix) {
+            throw new ParseException(String.format(MESSAGE_CONTAIN_EXTRA_PREFIX, UpdateCommand.MESSAGE_USAGE));
+        }
         if (argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }

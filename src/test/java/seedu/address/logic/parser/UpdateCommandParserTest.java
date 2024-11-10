@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_CONTAIN_EXTRA_PREFIX;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
@@ -17,6 +18,9 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.SUBJECT_DESC_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.SUBJECT_DESC_MATH;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_DEADLINE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_DESCRIPTION_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_INDEX_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LESSON_TIME_SUN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LEVEL_S4_NT;
@@ -75,6 +79,26 @@ public class UpdateCommandParserTest {
 
         // invalid prefix being parsed as preamble
         assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
+    public void parse_extraPrefix_failure() {
+        String validExpectedStudentString = PHONE_DESC_BOB + SUBJECT_DESC_MATH
+                + ADDRESS_DESC_AMY + NAME_DESC_AMY + SUBJECT_DESC_ENGLISH + LESSON_TIME_SUN_DESC;
+
+        String expectedMessage = String.format(MESSAGE_CONTAIN_EXTRA_PREFIX, UpdateCommand.MESSAGE_USAGE);
+
+        //have Task Index Prefix
+        assertParseFailure(parser, validExpectedStudentString + TASK_INDEX_DESC,
+                expectedMessage);
+
+        //have Task deadline Prefix
+        assertParseFailure(parser, validExpectedStudentString + TASK_DEADLINE_DESC_AMY,
+                expectedMessage);
+
+        //have Task description Prefix
+        assertParseFailure(parser, validExpectedStudentString + TASK_DESCRIPTION_DESC_AMY,
+                expectedMessage);
     }
 
     @Test

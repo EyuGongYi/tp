@@ -29,12 +29,21 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a positive integer.";
     public static final String MESSAGE_INVALID_TASK_INDEX = "Task index is not a positive integer.";
+
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
     public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if any of the prefixes contains {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public static boolean isAnyPrefixPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
     /**

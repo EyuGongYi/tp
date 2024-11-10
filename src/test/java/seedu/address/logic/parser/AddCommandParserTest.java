@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_CONTAIN_EXTRA_PREFIX;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
@@ -18,12 +19,16 @@ import static seedu.address.logic.commands.CommandTestUtil.LEVEL_DESC_S1_NA;
 import static seedu.address.logic.commands.CommandTestUtil.LEVEL_DESC_S4_NT;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NOTE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.SUBJECT_DESC_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.SUBJECT_DESC_MATH;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_DEADLINE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_DESCRIPTION_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.TASK_INDEX_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LESSON_TIME_SUN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LESSON_TIME_TUE;
@@ -213,6 +218,29 @@ public class AddCommandParserTest {
 
         // all prefixes missing
         assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_ADDRESS_BOB,
+                expectedMessage);
+    }
+    @Test
+    public void parse_extraPrefix_failure() {
+        String expectedMessage = String.format(MESSAGE_CONTAIN_EXTRA_PREFIX, AddCommand.MESSAGE_USAGE);
+
+        String validExpectedStudentString = NAME_DESC_BOB + PHONE_DESC_BOB + EMERGENCY_CONTACT_DESC_BOB
+                + ADDRESS_DESC_BOB + LEVEL_DESC_S1_NA + SUBJECT_DESC_ENGLISH;
+
+        //have Note Prefix
+        assertParseFailure(parser, NOTE_DESC_AMY + validExpectedStudentString,
+                expectedMessage);
+
+        //have Task Index Prefix
+        assertParseFailure(parser, TASK_INDEX_DESC + validExpectedStudentString,
+                expectedMessage);
+
+        //have Task deadline Prefix
+        assertParseFailure(parser, TASK_DEADLINE_DESC_AMY + validExpectedStudentString,
+                expectedMessage);
+
+        //have Task description Prefix
+        assertParseFailure(parser, TASK_DESCRIPTION_DESC_AMY + validExpectedStudentString,
                 expectedMessage);
     }
 

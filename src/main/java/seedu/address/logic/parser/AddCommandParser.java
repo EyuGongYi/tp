@@ -1,14 +1,20 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_CONTAIN_EXTRA_PREFIX;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMERGENCY_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSON_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DEADLINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
+import static seedu.address.logic.parser.ParserUtil.isAnyPrefixPresent;
 import static seedu.address.logic.parser.ParserUtil.parseNote;
 
 import java.util.HashSet;
@@ -39,7 +45,14 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMERGENCY_CONTACT,
-                        PREFIX_ADDRESS, PREFIX_SUBJECT, PREFIX_LEVEL, PREFIX_LESSON_TIME);
+                        PREFIX_ADDRESS, PREFIX_SUBJECT, PREFIX_LEVEL, PREFIX_LESSON_TIME,
+                        PREFIX_NOTE, PREFIX_TASK_INDEX, PREFIX_TASK_DEADLINE, PREFIX_TASK_DESCRIPTION);
+        boolean isExtraPrefix = isAnyPrefixPresent(argMultimap, PREFIX_NOTE, PREFIX_TASK_INDEX,
+                PREFIX_TASK_DEADLINE, PREFIX_TASK_DESCRIPTION);
+
+        if (isExtraPrefix) {
+            throw new ParseException(String.format(MESSAGE_CONTAIN_EXTRA_PREFIX, AddCommand.MESSAGE_USAGE));
+        }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_EMERGENCY_CONTACT, PREFIX_PHONE)
                 || !argMultimap.getPreamble().isEmpty()) {
